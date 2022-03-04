@@ -21,10 +21,10 @@ _start=1
 _end=100
 
 #Params
-MFA_KEYS_URL="https://sshservice-test.cscs.ch/api/v1/ssh-keys/signed-key"
-AUTH_SERVER="https://auth-tds.cscs.ch/auth/realms/cscs/protocol/openid-connect/token"
-CLIENT_ID="sshservice-test"
-CLIENT_SECRET="109beb60-6008-4b39-a6df-04f2064d4b96"
+MFA_KEYS_URL="https://sshservice.cscs.ch/api/v1/ssh-keys/signed-key"
+AUTH_SERVER="https://auth.cscs.ch/auth/realms/cscs/protocol/openid-connect/token"
+CLIENT_ID="sshservice"
+CLIENT_SECRET="12aa48d7-36af-41fa-804f-01c185c5cefc"
 
 #Detect OS
 OS="$(uname)"
