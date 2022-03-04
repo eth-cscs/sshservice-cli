@@ -8,10 +8,10 @@ import time
 import re
 from progress.bar import IncrementalBar
 
-token_endpoint = 'https://auth-tds.cscs.ch/auth/realms/cscs/protocol/openid-connect/token'
-client_id = 'sshservice-test'
-client_secret = '109beb60-6008-4b39-a6df-04f2064d4b96'
-api_get_keys = 'https://sshservice-test.cscs.ch/api/v1/ssh-keys/signed-key'
+token_endpoint = 'https://auth.cscs.ch/auth/realms/cscs/protocol/openid-connect/token'
+client_id = 'sshservice'
+client_secret = '12aa48d7-36af-41fa-804f-01c185c5cefc'
+api_get_keys = 'https://sshservice.cscs.ch/api/v1/ssh-keys/signed-key'
 
 
 def get_user_credentials():
