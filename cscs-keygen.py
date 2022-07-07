@@ -4,14 +4,13 @@ import os
 import sys
 import time
 import re
+import json
 from progress.bar import IncrementalBar
 
-token_endpoint = 'https://auth-tds.cscs.ch/auth/realms/cscs/protocol/openid-connect/token'
-client_id = 'sshservice-test'
-client_secret = '109beb60-6008-4b39-a6df-04f2064d4b96'
-api_get_keys = 'https://sshservice-test.cscs.ch/api/v1/ssh-keys/signed-key'
+#Variables:
+api_get_keys = 'https://sshservice.cscs.ch/api/v1/auth/ssh-keys/signed-key'
 
-
+#Methods:
 def get_user_credentials():
     user = input("Username: ")
     pwd = getpass.getpass()
@@ -20,38 +19,16 @@ def get_user_credentials():
        sys.exit("Error: OTP must be a 6-digit code.")
     return user, pwd, otp
 
-def get_access_token(username, password, otp):
-    data = {
-        'username': username,
-        'password': password,
-        'client_id': client_id,
-        'grant_type': 'password',
-        'client_secret': client_secret,
-        'totp': otp
-    }
-    headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
-    try:
-        resp = requests.post(token_endpoint, data=data, headers=headers)
-        resp.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        try:
-            d_payload = e.response.json()
-        except:
-            raise SystemExit(e)
-        if "error_description" in d_payload:
-            print("Error: "+d_payload["error_description"])
-        raise SystemExit(e)
-    else:
-        acc_tok =  resp.json()['access_token']
-        if not acc_tok:
-            sys.exit("Error: Unable to fetch access token.")
-        else:
-            return acc_tok
 
-def get_keys(access_token):
-    headers = {'Authorization': 'Bearer '+access_token, 'Content-Type': 'application/x-www-form-urlencoded'}
+def get_keys(username, password, otp):
+    headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
+    data = {
+        "username": username,
+        "password": password,
+        "otp": otp
+    }
     try:
-        resp = requests.post(api_get_keys, headers=headers, verify=False)
+        resp = requests.post(api_get_keys, data=json.dumps(data), headers=headers, verify=False)
         resp.raise_for_status()
     except requests.exceptions.RequestException as e:
         try:
@@ -95,7 +72,7 @@ def save_keys(public,private):
 def main():
     user, pwd, otp = get_user_credentials()
     bar = IncrementalBar('Retrieving signed SSH keys:', max = 3)
-    public, private = get_keys(get_access_token(user, pwd, otp))
+    public, private = get_keys(user, pwd, otp)
     bar.next()
     time.sleep(1)
     bar.next()
@@ -117,4 +94,3 @@ def main():
     print(message)
 
 if __name__ == "__main__":
-    main()
