@@ -21,10 +21,7 @@ _start=1
 _end=100
 
 #Params
-MFA_KEYS_URL="https://sshservice-test.cscs.ch/api/v1/ssh-keys/signed-key"
-AUTH_SERVER="https://auth-tds.cscs.ch/auth/realms/cscs/protocol/openid-connect/token"
-CLIENT_ID="sshservice-test"
-CLIENT_SECRET="109beb60-6008-4b39-a6df-04f2064d4b96"
+MFA_KEYS_URL="https://sshservice.cscs.ch/api/v1/auth/ssh-keys/signed-key"
 
 #Detect OS
 OS="$(uname)"
@@ -76,36 +73,16 @@ fi
 ProgressBar 25 "${_end}"
 echo "  Authenticating to the SSH key service..."
 
-#Get the access token:
-CURL_OUTPUT=$(curl -s -S -d "client_id=${CLIENT_ID}" -d "client_secret=${CLIENT_SECRET}" -d "username=${USERNAME}" -d "password=${PASSWORD}" -d "grant_type=password" -d "totp=${OTP}" "${AUTH_SERVER}")
+CURL_COMMAND="curl -s -S -k -X POST -H 'accept: application/json' -H 'Content-Type: application/json' -d \
+'{\"username\": \"${USERNAME}\", \"password\": \"${PASSWORD}\", \"otp\": \"${OTP}\"}' ${MFA_KEYS_URL}"
+KEYS=$(eval $CURL_COMMAND)
 
-# check errors from curl, -S will display the error even with -s silent
 if [ $? != 0 ]; then
     exit 1
-fi
-
-# Check output of curl
-DICT_KEY=$(echo ${CURL_OUTPUT} | cut -d \" -f 2)
-if [ "${DICT_KEY}" != "access_token" ]; then
-   echo "Authentication failed."
-   exit 1
-fi
-
-ACCESS_TOKEN=$(echo ${CURL_OUTPUT} | cut -d \" -f 4)
-if [ -z "${ACCESS_TOKEN}" ]; then
-   echo "Authentication failed."
-   exit 1
 fi
 
 ProgressBar 50 "${_end}"
-
 echo "  Retrieving the SSH keys..."
-#Use the access token to fetch the keys
-KEYS=$(curl -s -S -k -X POST "${MFA_KEYS_URL}" -H "Authorization: Bearer ${ACCESS_TOKEN} " -H "Content-Type: application/x-www-form-urlencoded")
-# check errors from curl, -S will display the error if any even with -s silent
-if [ $? != 0 ]; then
-    exit 1
-fi
 
 DICT_KEY=$(echo ${KEYS} | cut -d \" -f 2)
 if [ "${DICT_KEY}" == "payload" ]; then
