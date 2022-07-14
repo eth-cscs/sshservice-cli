@@ -73,7 +73,7 @@ fi
 ProgressBar 25 "${_end}"
 echo "  Authenticating to the SSH key service..."
 
-CURL_COMMAND="curl -s -S -k -X POST -H 'accept: application/json' -H 'Content-Type: application/json' -d \
+CURL_COMMAND="curl -s -S -X POST -H 'accept: application/json' -H 'Content-Type: application/json' -d \
 '{\"username\": \"${USERNAME}\", \"password\": \"${PASSWORD}\", \"otp\": \"${OTP}\"}' ${MFA_KEYS_URL}"
 KEYS=$(eval $CURL_COMMAND)
 
