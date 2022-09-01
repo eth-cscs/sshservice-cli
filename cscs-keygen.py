@@ -28,7 +28,7 @@ def get_keys(username, password, otp):
         "otp": otp
     }
     try:
-        resp = requests.post(api_get_keys, data=json.dumps(data), headers=headers, verify=False)
+        resp = requests.post(api_get_keys, data=json.dumps(data), headers=headers, verify=True)
         resp.raise_for_status()
     except requests.exceptions.RequestException as e:
         try:
