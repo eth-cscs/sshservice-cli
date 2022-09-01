@@ -74,7 +74,7 @@ ProgressBar 25 "${_end}"
 echo "  Authenticating to the SSH key service..."
 
 HEADERS=(-H "Content-Type: application/json" -H "accept: application/json")
-KEYS=$(curl -s -S -k \
+KEYS=$(curl -s -S \
     "${HEADERS[@]}" \
     -d "{\"username\": \"$USERNAME\", \"password\": \"$PASSWORD\", \"otp\": \"$OTP\"}" \
     "$MFA_KEYS_URL")
