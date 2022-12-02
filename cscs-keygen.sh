@@ -137,4 +137,7 @@ cat << EOF
 
     2. Connect to the login node using CSCS keys:
        $ ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
+       
+    Optional but recommended to set a passphrase on the private key using the below command:
+       $ ssh-keygen -f ~/.ssh/cscs-key -p    
 EOF
