@@ -83,15 +83,17 @@ def main():
     bar.finish()
 
     message = """
+    
+    Optional but recommended to set a passphrase on the private key using the below command:
+       $ ssh-keygen -f ~/.ssh/cscs-key -p 
+    
     Usage:
     1. Add the key to the ssh agent:
        $ ssh-add ~/.ssh/cscs-key
 
     2. Connect to the login node using CSCS keys:
-       $ ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
+       $ ssh -A <CSCS-LOGIN-NODE>
        
-    Optional but recommended to set a passphrase on the private key using the below command:
-       $ ssh-keygen -f ~/.ssh/cscs-key -p    
     """
 
     print(message)
