@@ -130,14 +130,14 @@ echo "  Completed."
 #Usage message:
 cat << EOF
 
-
+    Optional but recommended to set a passphrase on the private key using the below command:
+       $ ssh-keygen -f ~/.ssh/cscs-key -p
+       
     Usage:
     1. Add the key to the SSH agent:
        $ ssh-add ~/.ssh/cscs-key
 
     2. Connect to the login node using CSCS keys:
-       $ ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
-       
-    Optional but recommended to set a passphrase on the private key using the below command:
-       $ ssh-keygen -f ~/.ssh/cscs-key -p    
+       $ ssh -A <CSCS-LOGIN-NODE>
+           
 EOF
