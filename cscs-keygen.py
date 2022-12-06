@@ -84,6 +84,7 @@ def main():
 
     message = """
     
+Usage: 
 (Optional) But recommended to set a passphrase on the private key using the below command:
 
 ssh-keygen -f ~/.ssh/cscs-key -p
