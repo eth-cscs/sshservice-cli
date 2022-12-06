@@ -141,7 +141,6 @@ sh-add ~/.ssh/cscs-key
 ssh -A <CSCS-LOGIN-NODE>
 
 Note - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
-
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
            
 EOF
