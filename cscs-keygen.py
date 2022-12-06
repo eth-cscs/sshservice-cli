@@ -97,7 +97,6 @@ ssh -A <CSCS-LOGIN-NODE>
 Note 1 - Assuming the keys were copied to ~/.ssh
 
 Note 2 - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
-
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
        
     """
