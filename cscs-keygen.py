@@ -86,17 +86,15 @@ def main():
     
 Usage: 
 (Optional) But recommended to set a passphrase on the private key using the below command:
-
 ssh-keygen -f ~/.ssh/cscs-key -p
+
 1. Add the key to the SSH agent:
-
 sh-add ~/.ssh/cscs-key
+
 2. Connect to the login node using CSCS keys:
-
 ssh -A <CSCS-LOGIN-NODE>
-Note 1 - Assuming the keys were copied to ~/.ssh
 
-Note 2 - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
+Note - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
        
     """
