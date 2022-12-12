@@ -131,7 +131,7 @@ echo "  Completed."
 cat << EOF
 
 Usage:
-(Optional) But recommended to set a passphrase on the private key using the below command:
+(Optional but recommended) Set a passphrase on the private key using the below command:
 ssh-keygen -f ~/.ssh/cscs-key -p
 
 1. Add the key to the SSH agent:
