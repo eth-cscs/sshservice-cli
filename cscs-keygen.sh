@@ -127,13 +127,16 @@ fi
 ProgressBar 100 "${_end}"
 echo "  Completed."
 
+exit_code_passphrase=1
+while [ $exit_code_passphrase != 0 ]; do
+    ssh-keygen -f ~/.ssh/cscs-key -p
+    exit_code_passphrase=$?
+done
+
 #Usage message:
 cat << EOF
 
 Usage:
-(Optional but recommended) Set a passphrase on the private key using the below command:
-ssh-keygen -f ~/.ssh/cscs-key -p
-
 1. Add the key to the SSH agent:
 ssh-add -t 1d ~/.ssh/cscs-key
 
