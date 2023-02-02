@@ -135,7 +135,7 @@ Usage:
 ssh-keygen -f ~/.ssh/cscs-key -p
 
 1. Add the key to the SSH agent:
-ssh-add ~/.ssh/cscs-key
+ssh-add -t 1d ~/.ssh/cscs-key
 
 2. Connect to the login node using CSCS keys:
 ssh -A <CSCS-LOGIN-NODE>
