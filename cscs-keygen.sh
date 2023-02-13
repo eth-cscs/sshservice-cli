@@ -128,7 +128,7 @@ ProgressBar 100 "${_end}"
 echo "  Completed."
 
 exit_code_passphrase=1
-read -n 1 -p "Do you want to add a passphrase to your key? [y/n] (Default Yes) " reply; 
+read -n 1 -p "Do you want to add a passphrase to your key? [y/n] (Default y) " reply; 
 if [ "$reply" != "" ];
  then echo;
 fi
@@ -149,7 +149,7 @@ ssh-add -t 1d ~/.ssh/cscs-key
 2. Connect to the login node using CSCS keys:
 ssh -A <CSCS-LOGIN-NODE>
 
-Note - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
+Note - if the key not is added to the SSH agent as mentioned in the step-1 above then use the command:
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
 EOF
@@ -164,7 +164,7 @@ ssh-add -t 1d ~/.ssh/cscs-key
 2. Connect to the login node using CSCS keys:
 ssh -A <CSCS-LOGIN-NODE>
 
-Note - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
+Note - if the key is not added to the SSH agent as mentioned in the step-1 above then use the command:
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
 EOF
