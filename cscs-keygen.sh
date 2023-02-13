@@ -127,12 +127,36 @@ fi
 ProgressBar 100 "${_end}"
 echo "  Completed."
 
+exit_code_passphrase=1
+read -n 1 -p "Do you want to add a passphrase to your key? [y/n] (Default Yes) " reply; 
+if [ "$reply" != "" ];
+ then echo;
+fi
+if [ "$reply" = "${reply#[Nn]}" ]; then
+    ssh-keygen -f ~/.ssh/cscs-key -p
+    exit_code_passphrase=$?
+fi
+
 #Usage message:
+if (( $exit_code_passphrase == 0 ));then
 cat << EOF
 
 Usage:
-(Optional but recommended) Set a passphrase on the private key using the below command:
-ssh-keygen -f ~/.ssh/cscs-key -p
+
+1. Add the key to the SSH agent, using the passphrase you have set:
+ssh-add -t 1d ~/.ssh/cscs-key
+
+2. Connect to the login node using CSCS keys:
+ssh -A <CSCS-LOGIN-NODE>
+
+Note - if the key not added to the SSH agent as mentioned in the step-1 above then use the command:
+ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
+
+EOF
+else
+cat << EOF
+
+Usage:
 
 1. Add the key to the SSH agent:
 ssh-add -t 1d ~/.ssh/cscs-key
@@ -144,3 +168,7 @@ Note - if the key not added to the SSH agent as mentioned in the step-1 above th
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
 EOF
+fi
+
+
+
