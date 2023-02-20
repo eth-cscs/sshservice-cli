@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# This script sets the environment properly so that a user can access CSCS
+# login nodes via ssh. 
+
+#    Copyright (C) 2023, ETH Zuerich, Switzerland
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, version 3 of the License.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    AUTHORS Massimo Benini
+
+
 function ProgressBar {
 # Process data
     let _progress=(${1}*100/${2}*100)/100
@@ -133,8 +153,10 @@ if [ "$reply" != "" ];
  then echo;
 fi
 if [ "$reply" = "${reply#[Nn]}" ]; then
-    ssh-keygen -f ~/.ssh/cscs-key -p
-    exit_code_passphrase=$?
+      while [ $exit_code_passphrase != 0 ]; do
+        ssh-keygen -f ~/.ssh/cscs-key -p
+        exit_code_passphrase=$?
+      done
 fi
 
 #Usage message:
