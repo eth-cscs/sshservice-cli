@@ -159,13 +159,18 @@ if [ "$reply" = "${reply#[Nn]}" ]; then
       done
 fi
 
-#Usage message:
-if (( $exit_code_passphrase == 0 ));then
+if (( $exit_code_passphrase == 0 ));
+  then
+    SUBSTRING=", using the passphrase you have set:";
+  else
+     SUBSTRING=":";
+fi     
+
 cat << EOF
 
 Usage:
 
-1. Add the key to the SSH agent, using the passphrase you have set:
+1. Add the key to the SSH agent${SUBSTRING}
 ssh-add -t 1d ~/.ssh/cscs-key
 
 2. Connect to the login node using CSCS keys:
@@ -175,22 +180,6 @@ Note - if the key not is added to the SSH agent as mentioned in the step-1 above
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
 EOF
-else
-cat << EOF
-
-Usage:
-
-1. Add the key to the SSH agent:
-ssh-add -t 1d ~/.ssh/cscs-key
-
-2. Connect to the login node using CSCS keys:
-ssh -A <CSCS-LOGIN-NODE>
-
-Note - if the key is not added to the SSH agent as mentioned in the step-1 above then use the command:
-ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
-
-EOF
-fi
 
 
 
