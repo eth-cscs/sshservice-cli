@@ -117,26 +117,14 @@ def main():
     time.sleep(1)
     bar.finish()
     if (set_passphrase()):
-        message = """
-
-Usage:
-
-1. Add the key to the SSH agent, using the passphrase you have set:
-ssh-add -t 1d ~/.ssh/cscs-key
-
-2. Connect to the login node using CSCS keys:
-ssh -A <CSCS-LOGIN-NODE>
-
-Note - if the key is not added to the SSH agent as mentioned in the step-1 above then use the command:
-ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
-
-    """
+        substrg = ", using the passphrase you have set:"
     else:
-        message = """
+        substrg = ":"
+    message = """        
 
 Usage:
 
-1. Add the key to the SSH agent:
+1. Add the key to the SSH agent"""+substrg+"""
 ssh-add -t 1d ~/.ssh/cscs-key
 
 2. Connect to the login node using CSCS keys:
@@ -145,8 +133,7 @@ ssh -A <CSCS-LOGIN-NODE>
 Note - if the key is not added to the SSH agent as mentioned in the step-1 above then use the command:
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
-    """
-
+"""
     print(message)
 
 if __name__ == "__main__":
