@@ -174,7 +174,7 @@ Usage:
 ssh-add -t 1d ~/.ssh/cscs-key
 
 2. Connect to the login node using CSCS keys:
-ssh -A <CSCS-LOGIN-NODE>
+ssh -A your_username@<CSCS-LOGIN-NODE>
 
 Note - if the key not is added to the SSH agent as mentioned in the step-1 above then use the command:
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
