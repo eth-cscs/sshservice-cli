@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#    AUTHORS Massimo Benini
+#    AUTHORS Massimo Benini, Rocco Meli
 
 
 function ProgressBar {
@@ -68,11 +68,20 @@ if [ "${OS}" != "Mac" ] && [ "${OS}" != "Linux" ]; then
 fi
 
 #Read Inputs
-read -p "Username : " USERNAME
-read -s -p "Password: " PASSWORD
-echo
-read -s -p "Enter OTP (6-digit code): " OTP
-echo
+if ! command -v op --version &> /dev/null
+then
+  read -p "Username : " USERNAME
+  read -s -p "Password: " PASSWORD
+  echo
+  read -s -p "Enter OTP (6-digit code): " OTP
+  echo
+else
+  # Use 1password
+  read -p "1Password Item: " OP_ITEM
+  USERNAME=$(op item get "$OP_ITEM" --fields label=username)
+  PASSWORD=$(op item get "$OP_ITEM" --fields label=password)
+  OTP=$(op item get "$OP_ITEM" --otp)
+fi
 
 #Validate inputs
 if ! [[ "${USERNAME}" =~ ^[[:lower:]_][[:lower:][:digit:]_-]{2,15}$ ]]; then
