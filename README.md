@@ -6,7 +6,7 @@ The repository contains a simple Python script [cscs-keygen.py] and a shell scri
 For using the python script, these are the steps:
 
 ```sh
-git clone git@github.com:eth-cscs/sshservice-cli.git
+git clone https://github.com/eth-cscs/sshservice-cli.git
 cd sshservice-cli
 pip install virtualenv # (if you don't already have virtualenv installed)
 virtualenv venv # to create your new environment (called 'venv' here)
