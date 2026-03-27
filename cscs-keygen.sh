@@ -123,6 +123,13 @@ if [ -z "${PUBLIC}" ] || [ -z "${PRIVATE}" ]; then
     exit 1
 fi
 
+if [ "${OS}" = "Mac" -a -f ~/.ssh/cscs-key ]
+then
+  ProgressBar 70 "${_end}"
+  echo "  Removing old key from keychain..."
+  ssh-add -d ~/.ssh/cscs-key
+fi
+
 ProgressBar 75 "${_end}"
 echo "  Setting up the SSH keys into your home folder..."
 
@@ -139,6 +146,31 @@ if [ "${OS}" = "Mac" ]
 then
   sed -i '' -e '$ d' ~/.ssh/cscs-key-cert.pub || exit 1
   sed -i '' -e '$ d' ~/.ssh/cscs-key || exit 1
+  # init passphrase with 24 (18*8/6) random base64 chars
+  passphrase=$(dd if=/dev/random bs=1 count=18 2>/dev/null | base64)
+  # set the passphrase (ideally we should be able to pass it directly above in the curl
+  # call, and never store a private key without passphrase, but for now we set it here)
+  ProgressBar 80 "${_end}"
+  echo "  Setting passphrase $passphrase ..."
+  expect <<EOD
+spawn ssh-keygen -f "$HOME/.ssh/cscs-key" -p
+expect "Key has comment*"
+expect "Enter new passphrase*"
+send "${passphrase}\n"
+expect "Enter same passphrase again*"
+send "${passphrase}\n"
+expect eof
+EOD
+  ProgressBar 90 "${_end}"
+  echo "  Registering the key and passphrase in the keychain"
+  expect <<EOD
+spawn ssh-add --apple-use-keychain "$HOME/.ssh/cscs-key"
+expect "Enter passphrase for *"
+send "${passphrase}\n"
+expect "Identity added*"
+expect "Certificate added*"
+expect eof
+EOD
 else [ "${OS}" = "Linux" ]
   sed '$d' ~/.ssh/cscs-key-cert.pub || exit 1
   sed '$d' ~/.ssh/cscs-key || exit 1
@@ -147,6 +179,10 @@ fi
 ProgressBar 100 "${_end}"
 echo "  Completed."
 
+if [ "${OS}" = "Mac" ]
+then
+    exit 0
+fi
 exit_code_passphrase=1
 read -n 1 -p "Do you want to add a passphrase to your key? [y/n] (Default y) " reply; 
 if [ "$reply" != "" ];
@@ -180,6 +216,3 @@ Note - if the key not is added to the SSH agent as mentioned in the step-1 above
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
 EOF
-
-
-
