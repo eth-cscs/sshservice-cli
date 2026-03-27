@@ -63,7 +63,7 @@ esac
 
 #OS validation
 if [ "${OS}" != "Mac" ] && [ "${OS}" != "Linux" ]; then
-  echo "This script works only on Mac-OS or Linux. Abording."
+  echo "This script works only on Mac-OS or Linux. Aborting."
   exit 1
 fi
 
@@ -176,7 +176,7 @@ ssh-add -t 1d ~/.ssh/cscs-key
 2. Connect to the login node using CSCS keys:
 ssh -A your_username@<CSCS-LOGIN-NODE>
 
-Note - if the key not is added to the SSH agent as mentioned in the step-1 above then use the command:
+Note - if the key is not added to the SSH agent as mentioned in the step-1 above, then use the command:
 ssh -i ~/.ssh/cscs-key <CSCS-LOGIN-NODE>
 
 EOF
