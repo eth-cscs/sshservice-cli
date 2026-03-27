@@ -34,7 +34,7 @@ def get_user_credentials():
     user = input("Username: ")
     pwd = getpass.getpass()
     otp = getpass.getpass("Enter OTP (6-digit code):")
-    if not (re.match('^\d{6}$', otp)):
+    if not (re.match('^\\d{6}$', otp)):
        sys.exit("Error: OTP must be a 6-digit code.")
     return user, pwd, otp
 
