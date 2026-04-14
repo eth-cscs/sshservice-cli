@@ -22,7 +22,9 @@ cd sshservice-cli
 bash cscs-keygen.sh
 ```
 
-============================== **Announcement** ============================== 
+============================== **Announcement** =============================
+
+
 Dear [sshservice] users,
 
 As part of introducing our new resource and management platform, we are updating the tooling used for SSH access to CSCS systems.
@@ -40,4 +42,5 @@ This includes a revised centralized platform for account and SSH key management.
 - Instructions for the new SSH access setup are available here: https://docs.cscs.ch/access/ssh/. We recommend reviewing the documentation and updating your configuration at your earliest convenience. If you have any questions or encounter issues during the transition, please don’t hesitate to contact our support team.
 
 Best regards,
+
 CSCS IAM Team
