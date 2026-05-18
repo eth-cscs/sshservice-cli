@@ -1,46 +1,32 @@
-# mfa-cscs-access
+# Legacy CSCS SSH Service CLI — Discontinued
 
+> [!CAUTION]
+> **This service has been fully discontinued.**
+> This repository is no longer maintained, and the underlying CSCS SSH Service CLI is no longer in operation. This repository is kept online for historical reference only and will be archived.
 
-The repository contains a simple Python script [cscs-keygen.py] and a shell script [cscs-keygen.sh] which can be used as a command line tool for fetching public and private keys signed by CSCS'S CA after authenticating using MFA. You can then use those keys to ssh to CSCS'login nodes.
+## Current SSH workflow at CSCS
 
-For using the python script, these are the steps:
+SSH key management is now handled entirely through the new User Account portal and the new CLI:
 
-```sh
-git clone https://github.com/eth-cscs/sshservice-cli.git
-cd sshservice-cli
-pip install virtualenv # (if you don't already have virtualenv installed)
-virtualenv venv # to create your new environment (called 'venv' here)
-source venv/bin/activate # to enter the virtual environment
-pip install -r requirements.txt # to install the requirements in the current environment
-python cscs-keygen.py
-```
+- **User Account portal**: https://user-account.cscs.ch
+- **New CLI repository**: https://github.com/eth-cscs/cscs-key
+- **Documentation**: https://docs.cscs.ch/access/ssh/
 
-For using the shell script, these are the steps:
-```bash
-git clone git@github.com:eth-cscs/sshservice-cli.git
-cd sshservice-cli
-bash cscs-keygen.sh
-```
+From the User Account portal, users can manage account information, personal data, and SSH keys, as well as **sign their own SSH key** — a capability not available in this legacy CLI.
 
-============================== **Announcement** =============================
+## What happened
 
+As part of the modernization of the CSCS IAM layer, the legacy SSH Service was replaced by a new system integrated with the User Account portal. The CLI was fully rewritten and redesigned to provide a better user experience.
 
-Dear [sshservice] users,
+Following the migration, the legacy service has now been fully decommissioned. The code in this repository no longer corresponds to any running service and will not function against current CSCS infrastructure.
 
-As part of introducing our new resource and management platform, we are updating the tooling used for SSH access to CSCS systems.
-This includes a revised centralized platform for account and SSH key management.
+## Repository status
 
-**What is changing**
-- Updated workflows for generating, registering, and using SSH keys
-- Improved support for automation and programmatic access via CLI and APIs
-- A revised user interface with additional links to other interfaces
+> [!IMPORTANT]
+> This repository is **deprecated, unmaintained, and scheduled for archival**. No issues, pull requests, or support requests will be processed.
 
-**Transition period**
-- To ensure a smooth migration, the current sshservice.cscs.ch (and the corresponding command line tool https://github.com/eth-cscs/sshservice-cli) will **remain available until 2024-04-20**. During this period, both systems will operate in parallel, and we strongly encourage you to transition to the new setup as early as possible.
+Please update any bookmarks, scripts, internal references, or documentation that still point to this repository.
 
-**Documentation**
-- Instructions for the new SSH access setup are available here: https://docs.cscs.ch/access/ssh/. We recommend reviewing the documentation and updating your configuration at your earliest convenience. If you have any questions or encounter issues during the transition, please don’t hesitate to contact our support team.
+## Support
 
-Best regards,
-
-CSCS IAM Team
+For all current SSH-related workflows, please refer to the new CLI repository, the User Account portal, and the updated documentation linked above.
